@@ -15,6 +15,14 @@ app.get('/awesome', (req, res) => { //this will never be reached
   `);
 });
 
+// http://localhost:8080/howdy/test?title=noidea&sleep=yes&class=fun&time=flying
+//    "howdy" is the URL Param    title is the Query Param
+app.get('/howdy/:first', (req, res) => {
+    console.log(req.params)
+    console.log(req.query)
+    res.send('hello ' + req.query.title)
+})
+
 app.get('/hello/:first/:last', (req, res) => {
     console.log(req.params)
     res.send('hello ' + req.params.first + ' ' + req.params.last)
