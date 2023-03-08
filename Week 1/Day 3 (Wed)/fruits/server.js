@@ -6,8 +6,8 @@ const app = express()
 
 const PORT = 8080 
 
-// Setup some data
-const fruits = ['apple', 'banana', 'pear'];
+// Load our fruit data from models folder
+const fruits = require('./models/fruits')
 
 // Setup an "index" route 
 app.get('/fruits', (req, res) => {
