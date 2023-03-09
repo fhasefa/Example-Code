@@ -7,19 +7,14 @@ const app = express()
 const PORT = 8080 
 
 // Load our fruit data from models folder
-const fruits = require('./models/fruits')
 const vegetables = require('./models/vegetables')
 const meats = require('./models/meats')
 
-// Setup an "index" route for fruits
-app.get('/fruits', (req, res) => {
-    res.send(fruits)
-})
+// Load our fruit routes
+const fruitRoutes = require('./routes/fruitRoutes')
 
-// Setup a "show" route for fruits
-app.get('/fruits/:index', (req, res) => {
-    res.send(fruits[req.params.index])
-})
+// Connect our routes to our express app
+app.use('/fruits', fruitRoutes)
 
 // Setup an "index" route for vegetables
 app.get('/vegetables', (req, res) => {
