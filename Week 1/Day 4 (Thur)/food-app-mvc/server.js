@@ -1,0 +1,47 @@
+// Load express
+const express = require('express')
+
+// Setup our Express app
+const app = express()
+
+const PORT = 8080 
+
+// Load our fruit data from models folder
+const fruits = require('./models/fruits')
+const vegetables = require('./models/vegetables')
+const meats = require('./models/meats')
+
+// Setup an "index" route for fruits
+app.get('/fruits', (req, res) => {
+    res.send(fruits)
+})
+
+// Setup a "show" route for fruits
+app.get('/fruits/:index', (req, res) => {
+    res.send(fruits[req.params.index])
+})
+
+// Setup an "index" route for vegetables
+app.get('/vegetables', (req, res) => {
+    res.send(vegetables)
+})
+
+// Setup a "show" route for vegetables
+app.get('/vegetables/:index', (req, res) => {
+    res.send(vegetables[req.params.index])
+})
+
+// Setup an "index" route for meats
+app.get('/meats', (req, res) => {
+    res.send(meats)
+})
+
+// Setup a "show" route for fruits
+app.get('/meats/:index', (req, res) => {
+    res.send(meats[req.params.index])
+})
+
+// Listen to the given port
+app.listen(PORT, () => {
+    console.log('Listening to the port: ' + PORT)
+})
