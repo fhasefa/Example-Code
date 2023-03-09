@@ -2,6 +2,7 @@ const fruits = require('../models/fruits')
 
 // The callback functions originally the second argument from -> app.get('/', () => {})
 function index(req, res) {
+    // Looks in the views folder for "fruits/Index" and passes { fruits } data to the view (kind of like a server props object)
     res.render('fruits/Index', { fruits })
 }
 

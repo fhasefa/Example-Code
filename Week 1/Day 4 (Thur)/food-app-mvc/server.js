@@ -13,11 +13,13 @@ const meats = require('./models/meats')
 // Load our fruit routes
 const fruitRoutes = require('./routes/fruitRoutes')
 
-// npm install jsx-view-engine react react-dom
-// Load the create engine
+// Load the create engine -> (npm install jsx-view-engine react react-dom)
 const { createEngine } = require('jsx-view-engine')
 
+// Configure the view engine and look for files ending in jsx
 app.set('view engine', 'jsx')
+
+// Create the engine and accept files ending in jsx
 app.engine('jsx', createEngine())
 
 // Connect our routes to our express app
