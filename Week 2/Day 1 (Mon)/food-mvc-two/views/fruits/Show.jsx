@@ -7,11 +7,20 @@ function Show(props) {
             <p>The <strong>{props.fruit.name}</strong> {props.fruit.readyToEat ? 'is ready to eat' : 'is NOT ready to eat'}</p>
             <p>Its color is <span style={{ color: props.fruit.color }}>{props.fruit.color}</span></p>
 
+
+            <a href={`/fruits/${props.fruit.name}/edit`}>Edit</a>
+            
+            <br /><br />
+
+
             <form action={`/fruits/${props.fruit.name}?_method=DELETE`} method="POST">
                 <button>Delete</button>
             </form>
 
             <br />
+
+            
+
             <a href="/fruits">Back</a>
         </div>
     )

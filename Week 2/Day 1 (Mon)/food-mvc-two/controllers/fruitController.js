@@ -37,3 +37,26 @@ module.exports.delete = (req, res) => {
     res.redirect('/fruits')
 } 
 
+// GET /fruits/:name/edit
+module.exports.edit = (req, res) => {
+    console.log('GET /fruits/:name/edit')
+    let index = fruits.findIndex((item) => item.name === req.params.name)
+    res.render('fruits/Edit', { fruit: fruits[index] })
+}
+
+// PUT /fruits/:name
+module.exports.update = (req, res) => {
+    console.log('PUT /fruits/:name')
+    console.log(req.body)
+
+    if (req.body.readyToEat) {
+        req.body.readyToEat = true
+    } else {
+        req.body.readyToEat = false
+    }
+
+    let index = fruits.findIndex((item) => item.name === req.params.name)
+
+    fruits[index] = req.body
+    res.redirect('/fruits')
+}

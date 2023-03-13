@@ -18,8 +18,14 @@ router.get('/new', fruitController.new)
 // Setup a "delete" route for removing a specific fruit
 router.delete('/:name', fruitController.delete)
 
+// Setup a "update" route for updating a specific fruit
+router.put('/:name', fruitController.update)
+
 // Setup a "create" route for adding fruit data
 router.post('/', fruitController.create)
+
+// Setup a "edit" route for editing a fruit
+router.get('/:name/edit', fruitController.edit)
 
 // Setup an "show" route for fruits, attach it to router along with the controller logic
 router.get('/:index', fruitController.show)
