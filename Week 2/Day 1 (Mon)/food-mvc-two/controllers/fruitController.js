@@ -20,5 +20,12 @@ module.exports.new = (req, res) => {
 module.exports.create = (req, res) => {
     console.log('POST /fruits')
     console.log(req.body)
-    res.send('data received')
+    if (req.body.readyToEat) {
+        req.body.readyToEat = true
+    } else {
+        req.body.readyToEat = false
+    }
+    fruits.push(req.body)
+    res.redirect('/fruits')
 }
+
