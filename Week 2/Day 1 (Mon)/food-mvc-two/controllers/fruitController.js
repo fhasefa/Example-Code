@@ -32,6 +32,8 @@ module.exports.create = (req, res) => {
 // DELETE /fruits/:name
 module.exports.delete = (req, res) => {
     console.log('DELETE /fruits/:name')
-    res.send('deleted succesfully')
+    let index = fruits.findIndex((item) => item.name === req.params.name)
+    fruits.splice(index, 1)
+    res.redirect('/fruits')
 } 
 
