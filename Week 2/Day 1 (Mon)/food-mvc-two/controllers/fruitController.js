@@ -29,3 +29,9 @@ module.exports.create = (req, res) => {
     res.redirect('/fruits')
 }
 
+// DELETE /fruits/:name
+module.exports.delete = (req, res) => {
+    console.log('DELETE /fruits/:name')
+    res.send('deleted succesfully')
+} 
+

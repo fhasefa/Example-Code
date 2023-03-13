@@ -15,6 +15,9 @@ router.get('/', fruitController.index)
 // Setup a "new" route for creating fruit
 router.get('/new', fruitController.new)
 
+// Setup a "delete" route for removing a specific fruit
+router.delete('/:name', fruitController.delete)
+
 // Setup a "create" route for adding fruit data
 router.post('/', fruitController.create)
 
