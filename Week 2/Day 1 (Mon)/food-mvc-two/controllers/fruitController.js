@@ -11,11 +11,14 @@ module.exports.show = (req, res) => {
     res.render('fruits/Show', { fruit: fruits[req.params.index] })
 }
 
+// GET /fruits/new
 module.exports.new = (req, res) => {
     res.render('fruits/New')
 }
 
+// POST /fruits
 module.exports.create = (req, res) => {
     console.log('POST /fruits')
+    console.log(req.body)
     res.send('data received')
 }

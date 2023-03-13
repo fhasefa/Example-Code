@@ -22,6 +22,9 @@ app.set('view engine', 'jsx')
 // Create the engine and accept files ending in jsx
 app.engine('jsx', createEngine())
 
+// a middleware that formats the form data (currently a string that looks like query params) into a object we can use
+app.use(express.urlencoded({ extended: true }))
+
 // Connect our routes to our express app
 app.use('/fruits', fruitRoutes)
 
