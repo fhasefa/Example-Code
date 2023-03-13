@@ -15,6 +15,9 @@ router.get('/', fruitController.index)
 // Setup a "new" route for creating fruit
 router.get('/new', fruitController.new)
 
+// Setup a "create" route for adding fruit data
+router.post('/', fruitController.create)
+
 // Setup an "show" route for fruits, attach it to router along with the controller logic
 router.get('/:index', fruitController.show)
 

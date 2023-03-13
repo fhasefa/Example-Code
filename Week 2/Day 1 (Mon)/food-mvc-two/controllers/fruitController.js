@@ -14,3 +14,8 @@ module.exports.show = (req, res) => {
 module.exports.new = (req, res) => {
     res.render('fruits/New')
 }
+
+module.exports.create = (req, res) => {
+    console.log('POST /fruits')
+    res.send('data received')
+}
