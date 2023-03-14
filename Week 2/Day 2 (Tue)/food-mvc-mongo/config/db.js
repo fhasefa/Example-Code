@@ -6,7 +6,10 @@ const connectDB = async () => {
         await mongoose.connect(db, {
             useNewUrlParser: true
         })
-    } catch (e) {
-        
+        console.log("Mongoose connected...")
+    } catch (err) {
+        console.error(err.message)
     }
 }
+
+module.exports = connectDB
