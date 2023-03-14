@@ -25,7 +25,7 @@ router.put('/:name', fruitController.update)
 router.post('/', fruitController.create)
 
 // Setup a "edit" route for editing a fruit
-router.get('/:name/edit', fruitController.edit)
+router.get('/:id/edit', fruitController.edit)
 
 // Setup an "show" route for fruits, attach it to router along with the controller logic
 router.get('/:index', fruitController.show)

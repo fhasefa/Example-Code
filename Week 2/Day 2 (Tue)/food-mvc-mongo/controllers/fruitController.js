@@ -58,8 +58,8 @@ module.exports.delete = (req, res) => {
 
 // GET /fruits/:name/edit
 module.exports.edit = async (req, res) => {
-    console.log('GET /fruits/:name/edit')
-    const fruit = await Fruit.findById(req.params.name)
+    console.log('GET /fruits/:id/edit')
+    const fruit = await Fruit.findById(req.params.id)
     res.render('fruits/Edit', { fruit })
 }
 
