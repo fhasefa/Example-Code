@@ -16,8 +16,9 @@ module.exports.index = async (req, res) => {
 }
 
 // Those anonymous callback functions now have names: "index" and "show"
-module.exports.show = (req, res) => {
-    res.render('fruits/Show', { fruit: fruits[req.params.index] })
+module.exports.show = async (req, res) => {
+    const fruit = await Fruit.findById(req.params.index)
+    res.render('fruits/Show', { fruit })
 }
 
 // GET /fruits/new

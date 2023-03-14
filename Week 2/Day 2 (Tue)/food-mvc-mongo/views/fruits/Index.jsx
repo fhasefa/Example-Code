@@ -9,7 +9,7 @@ function Index(props) {
             <ul>
                 {props.fruits.map((fruit, index) => 
                     <li key={index}>
-                        <a href={`/fruits/${index}`}><strong>{fruit.name}</strong></a>
+                        <a href={`/fruits/${fruit._id}`}><strong>{fruit.name}</strong></a>
                     </li>
                 )}
             </ul>
