@@ -9,6 +9,12 @@ const app = express()
 
 const PORT = 8080 
 
+// Load the connectDB function
+const connectDB = require('./config/db')
+
+// Connect to database
+connectDB()
+
 // Load our fruit data from models folder
 const vegetables = require('./models/vegetables')
 const meats = require('./models/meats')
