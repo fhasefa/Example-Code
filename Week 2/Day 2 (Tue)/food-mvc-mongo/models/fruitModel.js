@@ -10,3 +10,7 @@ const fruitSchema = new Schema({
     color: { type: String },
     readyToEat: { type: Boolean }
 })
+
+const Fruit = mongoose.model('fruits', fruitSchema)
+
+module.exports = Fruit
