@@ -7,7 +7,8 @@ const Fruit = require('../models/FruitModel')
 module.exports.index = async (req, res) => {
 
     // Use the fruit model to interact with the database
-    const result = await Fruit.find()
+    // find will get all documents from the fruit collection
+    const result = await Fruit.find() 
     console.log(result)
 
     // Looks in the views folder for "fruits/Index" and passes { fruits } data to the view (kind of like a server props object)
@@ -25,7 +26,7 @@ module.exports.new = (req, res) => {
 }
 
 // POST /fruits
-module.exports.create = (req, res) => {
+module.exports.create = async (req, res) => {
     console.log('POST /fruits')
     console.log(req.body)
     if (req.body.readyToEat) {
@@ -33,6 +34,15 @@ module.exports.create = (req, res) => {
     } else {
         req.body.readyToEat = false
     }
+
+    try {
+        // use the model to interact with db and create a new document in the fruit collection
+        const result = await Fruit.create(req.body)
+        console.log(result)
+    } catch(err) {
+        console.log('error')
+    }
+    
     fruits.push(req.body)
     res.redirect('/fruits')
 }
