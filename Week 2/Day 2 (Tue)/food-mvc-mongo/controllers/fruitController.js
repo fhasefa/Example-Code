@@ -6,19 +6,29 @@ const Fruit = require('../models/FruitModel')
 // The callback functions originally the second argument from -> app.get('/', () => {})
 module.exports.index = async (req, res) => {
 
-    // Use the fruit model to interact with the database
-    // find will get all documents from the fruit collection
-    const fruits = await Fruit.find() 
-    console.log(fruits)
+    try {
+        // Use the fruit model to interact with the database
+        // find will get all documents from the fruit collection
+        const fruits = await Fruit.find() 
+        console.log(fruits)
 
-    // Looks in the views folder for "fruits/Index" and passes { fruits } data to the view (kind of like a server props object)
-    res.render('fruits/Index', { fruits })
+        // Looks in the views folder for "fruits/Index" and passes { fruits } data to the view (kind of like a server props object)
+        res.render('fruits/Index', { fruits })
+    } catch(err) {
+        console.log(err)
+        res.send(err.message)
+    }
 }
 
 // Those anonymous callback functions now have names: "index" and "show"
 module.exports.show = async (req, res) => {
-    const fruit = await Fruit.findById(req.params.index)
-    res.render('fruits/Show', { fruit })
+    try {
+        const fruit = await Fruit.findById(req.params.index)
+        res.render('fruits/Show', { fruit })
+    } catch(err) {
+        console.log(err)
+        res.send(err.message)
+    }
 }
 
 // GET /fruits/new
@@ -29,7 +39,7 @@ module.exports.new = (req, res) => {
 // POST /fruits
 module.exports.create = async (req, res) => {
     console.log('POST /fruits')
-    console.log(req.body)
+
     if (req.body.readyToEat) {
         req.body.readyToEat = true
     } else {
@@ -41,10 +51,9 @@ module.exports.create = async (req, res) => {
         const result = await Fruit.create(req.body)
         console.log(result)
     } catch(err) {
-        console.log('error')
+        console.log(err)
     }
     
-    fruits.push(req.body)
     res.redirect('/fruits')
 }
 
@@ -59,8 +68,13 @@ module.exports.delete = (req, res) => {
 // GET /fruits/:name/edit
 module.exports.edit = async (req, res) => {
     console.log('GET /fruits/:id/edit')
-    const fruit = await Fruit.findById(req.params.id)
-    res.render('fruits/Edit', { fruit })
+    try {
+        const fruit = await Fruit.findById(req.params.id)
+        res.render('fruits/Edit', { fruit })
+    } catch(err) {
+        console.log(err)
+        res.send(err.message)
+    }    
 }
 
 // PUT /fruits/:name
