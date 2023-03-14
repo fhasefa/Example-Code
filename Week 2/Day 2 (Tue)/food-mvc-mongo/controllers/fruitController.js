@@ -8,8 +8,8 @@ module.exports.index = async (req, res) => {
 
     // Use the fruit model to interact with the database
     // find will get all documents from the fruit collection
-    const result = await Fruit.find() 
-    console.log(result)
+    const fruits = await Fruit.find() 
+    console.log(fruits)
 
     // Looks in the views folder for "fruits/Index" and passes { fruits } data to the view (kind of like a server props object)
     res.render('fruits/Index', { fruits })
