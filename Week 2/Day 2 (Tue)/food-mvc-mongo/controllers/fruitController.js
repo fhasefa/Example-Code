@@ -1,7 +1,15 @@
 const fruits = require('../models/fruits')
 
+// Load the fruit model
+const Fruit = require('../models/FruitModel')
+
 // The callback functions originally the second argument from -> app.get('/', () => {})
-module.exports.index = (req, res) => {
+module.exports.index = async (req, res) => {
+
+    // Use the fruit model to interact with the database
+    const result = await Fruit.find()
+    console.log(result)
+
     // Looks in the views folder for "fruits/Index" and passes { fruits } data to the view (kind of like a server props object)
     res.render('fruits/Index', { fruits })
 }
