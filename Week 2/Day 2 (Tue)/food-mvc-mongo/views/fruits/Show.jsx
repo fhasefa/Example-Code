@@ -8,7 +8,7 @@ function Show(props) {
             <p>Its color is <span style={{ color: props.fruit.color }}>{props.fruit.color}</span></p>
 
 
-            <a href={`/fruits/${props.fruit.name}/edit`}>Edit</a>
+            <a href={`/fruits/${props.fruit._id}/edit`}>Edit</a>
             
             <br /><br />
 

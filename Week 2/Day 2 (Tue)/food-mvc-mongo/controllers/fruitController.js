@@ -57,10 +57,10 @@ module.exports.delete = (req, res) => {
 } 
 
 // GET /fruits/:name/edit
-module.exports.edit = (req, res) => {
+module.exports.edit = async (req, res) => {
     console.log('GET /fruits/:name/edit')
-    let index = fruits.findIndex((item) => item.name === req.params.name)
-    res.render('fruits/Edit', { fruit: fruits[index] })
+    const fruit = await Fruit.findById(req.params.name)
+    res.render('fruits/Edit', { fruit })
 }
 
 // PUT /fruits/:name
