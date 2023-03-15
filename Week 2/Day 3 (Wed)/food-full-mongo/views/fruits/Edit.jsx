@@ -4,7 +4,7 @@ function Edit(props) {
     return ( 
         <div>
             <h1>Edit Fruit</h1>
-            <form action={`/fruits/${props.fruit.name}?_method=PUT`} method="POST">
+            <form action={`/fruits/${props.fruit._id}?_method=PUT`} method="POST">
                 <label htmlFor="nme">Name:</label><br />
                 <input type="text" id="nme" name="name" value={props.fruit.name} /><br /><br />
 

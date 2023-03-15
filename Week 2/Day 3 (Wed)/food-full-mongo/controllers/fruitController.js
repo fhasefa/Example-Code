@@ -23,7 +23,7 @@ module.exports.index = async (req, res) => {
 // Those anonymous callback functions now have names: "index" and "show"
 module.exports.show = async (req, res) => {
     try {
-        const fruit = await Fruit.findById(req.params.index)
+        const fruit = await Fruit.findById(req.params.id)
         res.render('fruits/Show', { fruit })
     } catch(err) {
         console.log(err)
@@ -77,9 +77,9 @@ module.exports.edit = async (req, res) => {
     }    
 }
 
-// PUT /fruits/:name
-module.exports.update = (req, res) => {
-    console.log('PUT /fruits/:name')
+// PUT /fruits/:id
+module.exports.update = async (req, res) => {
+    console.log('PUT /fruits/:id')
     console.log(req.body)
 
     if (req.body.readyToEat) {
@@ -88,8 +88,12 @@ module.exports.update = (req, res) => {
         req.body.readyToEat = false
     }
 
-    let index = fruits.findIndex((item) => item.name === req.params.name)
-
-    fruits[index] = req.body
-    res.redirect('/fruits')
+   try {
+        // pass the id to find the document in the db and the form data (req.body) to update it
+        await Fruit.findByIdAndUpdate(req.params.id, req.body)
+        res.redirect(`/fruits/${req.params.id}`)
+   } catch(err) {
+        console.log(err)
+        res.send(err.message)
+   }
 }
