@@ -14,6 +14,12 @@ function Index(props) {
                 )}
             </ul>
             <a href="/fruits/new">Add...</a>
+
+            <br/><br/><br/>
+
+            <form action="/fruits/seed" method="POST">
+                <button>SEED</button>
+            </form>
         </div>
     )
 }
