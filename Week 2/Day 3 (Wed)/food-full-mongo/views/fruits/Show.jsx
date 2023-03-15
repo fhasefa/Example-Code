@@ -13,7 +13,7 @@ function Show(props) {
             <br /><br />
 
 
-            <form action={`/fruits/${props.fruit.name}?_method=DELETE`} method="POST">
+            <form action={`/fruits/${props.fruit._id}?_method=DELETE`} method="POST">
                 <button>Delete</button>
             </form>
 

@@ -57,12 +57,16 @@ module.exports.create = async (req, res) => {
     res.redirect('/fruits')
 }
 
-// DELETE /fruits/:name
-module.exports.delete = (req, res) => {
-    console.log('DELETE /fruits/:name')
-    let index = fruits.findIndex((item) => item.name === req.params.name)
-    fruits.splice(index, 1)
-    res.redirect('/fruits')
+// DELETE /fruits/:id
+module.exports.delete = async (req, res) => {
+    console.log('DELETE /fruits/:id')
+    try {
+        await Fruit.findByIdAndDelete(req.params.id)
+        res.redirect('/fruits')
+    } catch(err) {
+        console.log(err)
+        res.send(err.message)
+    }
 } 
 
 // GET /fruits/:name/edit
