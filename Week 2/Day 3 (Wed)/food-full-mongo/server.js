@@ -40,6 +40,9 @@ app.use(express.urlencoded({ extended: true }))
 // hack into our form and give it more HTTP methods (like DELETE and PUT)
 app.use(methodOverride('_method'))
 
+// look for static files (like css) in the public folder
+app.use(express.static('public'))
+
 // Connect our routes to our express app
 app.use('/fruits', fruitRoutes)
 
