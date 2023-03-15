@@ -10,7 +10,7 @@ module.exports.index = async (req, res) => {
         // Use the fruit model to interact with the database
         // find will get all documents from the fruit collection
         const fruits = await Fruit.find() 
-        console.log(fruits)
+        console.log('inside controller')
 
         // Looks in the views folder for "fruits/Index" and passes { fruits } data to the view (kind of like a server props object)
         res.render('fruits/Index', { fruits })
@@ -38,7 +38,7 @@ module.exports.new = (req, res) => {
 
 // POST /fruits
 module.exports.create = async (req, res) => {
-    console.log('POST /fruits')
+    
 
     if (req.body.readyToEat) {
         req.body.readyToEat = true
@@ -59,7 +59,7 @@ module.exports.create = async (req, res) => {
 
 // DELETE /fruits/:id
 module.exports.delete = async (req, res) => {
-    console.log('DELETE /fruits/:id')
+  
     try {
         await Fruit.findByIdAndDelete(req.params.id)
         res.redirect('/fruits')
@@ -71,7 +71,7 @@ module.exports.delete = async (req, res) => {
 
 // GET /fruits/:name/edit
 module.exports.edit = async (req, res) => {
-    console.log('GET /fruits/:id/edit')
+  
     try {
         const fruit = await Fruit.findById(req.params.id)
         res.render('fruits/Edit', { fruit })
@@ -83,7 +83,7 @@ module.exports.edit = async (req, res) => {
 
 // PUT /fruits/:id
 module.exports.update = async (req, res) => {
-    console.log('PUT /fruits/:id')
+ 
     console.log(req.body)
 
     if (req.body.readyToEat) {
@@ -104,7 +104,6 @@ module.exports.update = async (req, res) => {
 
 // POST /fruits/seed
 module.exports.seed = async (req, res) => {
-    console.log('POST /fruits/seed')
 
     try {
         await Fruit.deleteMany({})
@@ -118,7 +117,6 @@ module.exports.seed = async (req, res) => {
 
 // DELETE /fruits/clear
 module.exports.clear = async (req, res) => {
-    console.log('DELETE /fruits/clear')
 
     try {
         await Fruit.deleteMany({})

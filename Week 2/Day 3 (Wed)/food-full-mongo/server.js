@@ -43,6 +43,13 @@ app.use(methodOverride('_method'))
 // look for static files (like css) in the public folder
 app.use(express.static('public'))
 
+// create a custom middleware for logging the HTTP Method and path 
+app.use((req, res, next) => {
+    console.log('inside middleware')
+    console.log(`${req.method} ${req.path}`)
+    next()
+})
+
 // Connect our routes to our express app
 app.use('/fruits', fruitRoutes)
 

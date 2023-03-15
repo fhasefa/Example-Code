@@ -1,8 +1,9 @@
 import React from 'react'
+import DefaultLayout from '../layouts/DefaultLayout';
 
 function Show(props) {
     return (
-        <div>
+        <DefaultLayout title="Show View">
             <h1>Show View</h1>
             <p>The <strong>{props.fruit.name}</strong> {props.fruit.readyToEat ? 'is ready to eat' : 'is NOT ready to eat'}</p>
             <p>Its color is <span style={{ color: props.fruit.color }}>{props.fruit.color}</span></p>
@@ -22,7 +23,7 @@ function Show(props) {
             
 
             <a href="/fruits">Back</a>
-        </div>
+        </DefaultLayout>
     )
 }
 
