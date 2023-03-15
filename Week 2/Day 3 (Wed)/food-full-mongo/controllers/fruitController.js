@@ -101,3 +101,17 @@ module.exports.update = async (req, res) => {
         res.send(err.message)
    }
 }
+
+// POST /fruits/seed
+module.exports.seed = async (req, res) => {
+    console.log('POST /fruits/seed')
+
+    try {
+        await Fruit.deleteMany({})
+        await Fruit.create(fruits)
+        res.redirect('/fruits')
+    } catch(err) {
+        console.log(err)
+        res.send(err.message)
+    }
+}

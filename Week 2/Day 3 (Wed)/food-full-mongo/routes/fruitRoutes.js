@@ -21,6 +21,9 @@ router.delete('/:id', fruitController.delete)
 // Setup a "update" route for updating a specific fruit
 router.put('/:id', fruitController.update)
 
+// Setup a "seed" route for repopulating our database
+router.post('/seed', fruitController.seed)
+
 // Setup a "create" route for adding fruit data
 router.post('/', fruitController.create)
 
