@@ -21,10 +21,10 @@ function Index(props) {
                 <button>SEED</button>
             </form>
 
-            <br/><br/>
+            <br/>
 
             <form action="/fruits/clear?_method=DELETE" method="POST">
-                <button>SEED</button>
+                <button>CLEAR</button>
             </form>
         </div>
     )

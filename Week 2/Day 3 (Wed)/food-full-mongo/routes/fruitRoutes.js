@@ -15,6 +15,9 @@ router.get('/', fruitController.index)
 // Setup a "new" route for creating fruit
 router.get('/new', fruitController.new)
 
+// Setup a "clear" route for removing all data from fruits collection
+router.delete('/clear', fruitController.clear)
+
 // Setup a "delete" route for removing a specific fruit
 router.delete('/:id', fruitController.delete)
 

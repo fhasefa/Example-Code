@@ -115,3 +115,16 @@ module.exports.seed = async (req, res) => {
         res.send(err.message)
     }
 }
+
+// DELETE /fruits/clear
+module.exports.clear = async (req, res) => {
+    console.log('DELETE /fruits/clear')
+
+    try {
+        await Fruit.deleteMany({})
+        res.redirect('/fruits')
+    } catch(err) {
+        console.log(err)
+        res.send(err.message)
+    }
+}
