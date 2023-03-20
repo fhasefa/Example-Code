@@ -7,9 +7,14 @@ const postSchema = new Schema({
    subject: { type: String },
    body: { type: String },
    user: { type: String, default: 'Bob' },
-   // comments field here
+   comments: [{
+      // an id referencing the comment
+      type: mongoose.Types.ObjectId,
+      // search for it in the Comments collection
+      ref: 'Comment'
+   }]
 }, { timestamps: true })
 
-const Post = mongoose.model('posts', postSchema)
+const Post = mongoose.model('Post', postSchema)
 
 module.exports = Post
