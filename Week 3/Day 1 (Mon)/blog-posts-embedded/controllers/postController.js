@@ -94,6 +94,8 @@ module.exports.showComment = async (req, res) => {
 module.exports.updateComment = async (req, res) => {
     // update a comment by updating an item in the comments property in post
 
+    // OPTION 1: using only Mongo operators and queries (more confusing)
+console.log(req.body) 
     // find the post with the matching id, then check that post's comments for matching comment id
     await Posts.updateOne({ _id: req.params.id, 'comments._id': req.params.cid }, {
         // set/replace the content 
@@ -102,5 +104,13 @@ module.exports.updateComment = async (req, res) => {
             'comments.$.body': req.body.body // req.body is the form data and req.body.body is the updated value of the comment
         }
     })
+
+    // OPTION 2: using plain JavaScript together with Mongo queries (less efficient)
+
+    // const post = await Posts.findById(req.params.id)
+    // const index = post.comments.findIndex(comment => comment._id.toString() === req.params.cid)
+    // post.comments[index].body = req.body.body
+    // await post.save()
+
     res.redirect(`/posts/${req.params.id}`)
 }

@@ -11,6 +11,7 @@ const Schema = mongoose.Schema
 // })
 
 // and then use it in post schema...
+
 // comments: [commentSchema]
 
 const postSchema = new Schema({
