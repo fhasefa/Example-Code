@@ -18,7 +18,13 @@ module.exports.new = async (req, res) => {
 }
 
 module.exports.delete = async (req, res) => {
-    await Posts.findByIdAndDelete(req.params.id)
+    // first find the post, store it in a variable, then delete it from database
+    const post = await Posts.findByIdAndDelete(req.params.id)
+    // delete all comments where the comment id 
+    await Comments.deleteMany({ _id: { 
+        // equals/matches any comment ids in this array
+        $in: post.comments 
+    }})
     res.redirect('/posts')
 }
 
@@ -88,10 +94,12 @@ module.exports.indexComment = async (req, res) => {
 
 module.exports.showComment = async (req, res) => {
     // find the post and filter it's comments property array
+    const comment = await Comments.findById(req.params.cid)
     res.render('comments/Edit', { postId: req.params.id, comment })
 }
 
 module.exports.updateComment = async (req, res) => {
     // update a comment by updating an item in the comments property in post
+    await Comments.findByIdAndUpdate(req.params.cid, req.body)
     res.redirect(`/posts/${req.params.id}`)
 }
