@@ -4,10 +4,10 @@ function Todo({ item, completeTodo, deleteTodo }) {
       <input
         type="checkbox"
         checked={item.completed}
-        onChange={() => completeTodo(item.id)}
+        onChange={() => completeTodo(item._id)}
       />
       {item.text}
-      <button onClick={() => deleteTodo(item.id)}>x</button>
+      <button onClick={() => deleteTodo(item._id)}>x</button>
     </li>
   );
 }

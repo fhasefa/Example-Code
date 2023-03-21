@@ -9,16 +9,17 @@ export default function App() {
 
   useEffect(() => {
 
-    // THE NEW WAY (async/await): 
+    // NEWER SYNTAX (async/await): 
 
     async function getTodos() {
       let response = await fetch('/todos')
       let data = await response.json()
+      console.log(data)
       setTodos(data)
     }
     getTodos()
 
-    // THE OLD WAY (method chaining):
+    // OLDER SYNTAX (method chaining):
 
     //  fetch('http://localhost:8080/test')
     //   .then(res => res.json())
@@ -53,15 +54,31 @@ export default function App() {
     setInput(event.target.value);
   }
 
-  function deleteTodo(id) {
-    let newTodos = todos.filter((item) => item.id !== id);
+  async function deleteTodo(id) {
+
+    await fetch(`/todos/${id}`, {
+      method: 'DELETE'
+    })
+
+    let newTodos = todos.filter((item) => item._id !== id);
     setTodos(newTodos);
   }
 
-  function completeTodo(id) {
-    let newTodos = todos.map((item) =>
-      item.id === id ? { ...item, completed: !item.completed } : item
-    );
+  async function completeTodo(id) {
+
+    let newTodos = [...todos]
+    let index = newTodos.findIndex(t => t._id === id)
+    let todo = newTodos[index]
+    todo.completed = !todo.completed
+
+    await fetch(`/todos/${id}`, {
+      method: 'PUT',
+      body: JSON.stringify(todo),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+    
     setTodos(newTodos);
   }
 

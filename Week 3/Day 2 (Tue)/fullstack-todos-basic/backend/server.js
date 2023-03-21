@@ -38,6 +38,26 @@ app.post('/todos', async (req, res) => {
     }
 })
 
+// delete/destroy route
+app.delete('/todos/:id', async (req, res) => {
+    try {
+        await Todo.findByIdAndDelete(req.params.id)
+        res.json({ message: 'deleted successfully' })
+    } catch(err) {
+        res.json({ error: err.message })
+    }
+})
+
+// update route
+app.put('/todos/:id', async (req, res) => {
+    try {
+        await Todo.findByIdAndUpdate(req.params.id, req.body)
+        res.json({ message: 'updated successfully' })
+    } catch(err) {
+        res.json({ error: err.message })
+    }
+})
+
 app.listen(8080, () => {
     console.log('Listening on port 8080...')
 })
