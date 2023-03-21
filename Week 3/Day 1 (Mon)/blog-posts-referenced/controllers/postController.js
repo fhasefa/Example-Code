@@ -60,6 +60,10 @@ module.exports.show = async (req, res) => {
 // EXTRA LOGIC (for comments)
 
 module.exports.createComment = async (req, res) => {
+    // Alternative to Comments.create():
+    // const comment = new Comments(req.body)
+    // comment.save()
+
     // create a document in our comments collection
     const comment = await Comments.create(req.body)
     // find the post 
@@ -89,7 +93,8 @@ module.exports.deleteComment = async (req, res) => {
 
 module.exports.indexComment = async (req, res) => {
     // target the comments property 
-    res.send('')
+    const post = await Posts.findById(req.params.id).populate('comments')
+    res.send(post.comments)
 }
 
 module.exports.showComment = async (req, res) => {

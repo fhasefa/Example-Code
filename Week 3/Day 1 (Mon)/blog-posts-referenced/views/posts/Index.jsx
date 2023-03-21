@@ -3,12 +3,6 @@ import DefaultLayout from '../layouts/DefaultLayout'
 
 function Index(props) {
 
-    function dateHasPassed(date) {
-        let today = new Date()
-        let dateToCheck = new Date(date)
-        return dateToCheck.getTime() < today.getTime()
-    }
-
     return (
             <DefaultLayout>
                 <h1>Index View</h1>
