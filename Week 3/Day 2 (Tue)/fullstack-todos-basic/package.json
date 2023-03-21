@@ -7,7 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "client": "cd client && npm start",
     "server": "cd backend && node --watch server.js",
-    "dev": "concurrently \"npm run client\" \"npm run server\""
+    "dev": "concurrently \"npm run client\" \"npm run server\"",
+    "postinstall": "cd backend && npm install && cd ../client && npm install"
   },
   "keywords": [],
   "author": "",
