@@ -9,32 +9,41 @@ export default function App() {
 
   useEffect(() => {
 
-    // THE NEW WAY: 
+    // THE NEW WAY (async/await): 
 
-    async function getData() {
-      let response = await fetch('/test')
+    async function getTodos() {
+      let response = await fetch('/todos')
       let data = await response.json()
-      console.log(data)
+      setTodos(data)
     }
-    getData()
+    getTodos()
 
-    // THE OLD WAY:
+    // THE OLD WAY (method chaining):
 
-     // fetch('http://localhost:8080/test')
+    //  fetch('http://localhost:8080/test')
     //   .then(res => res.json())
     //   .then(data => console.log(data))
 
 
   }, [])
 
-  function addToList() {
-    let item = {
-      text: input,
-      completed: false,
-      id: crypto.randomUUID() // 2188jd-293483-dfllkaksldf
+  async function addToList() {
+
+    let todo = {
+      text: input
     };
 
-    let newTodos = [...todos, item];
+    const response = await fetch('/todos', {
+      method: 'POST',
+      body: JSON.stringify(todo),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+
+    const newTodo = await response.json()
+
+    let newTodos = [...todos, newTodo];
 
     setTodos(newTodos);
     setInput("");
