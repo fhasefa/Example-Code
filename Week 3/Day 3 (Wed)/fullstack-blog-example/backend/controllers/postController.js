@@ -26,8 +26,9 @@ module.exports.delete = async (req, res) => {
 }
 
 module.exports.update = async (req, res) => {
-    await Posts.findByIdAndUpdate(req.params.id, req.body)
-    res.json({ message: 'updated successfully' })
+    // add a third argument to the update { new: true } to return the new updated version of the document
+    const updatedPost = await Posts.findByIdAndUpdate(req.params.id, req.body, { new: true })
+    res.json(updatedPost)
 }
 
 module.exports.create = async (req, res) => {
