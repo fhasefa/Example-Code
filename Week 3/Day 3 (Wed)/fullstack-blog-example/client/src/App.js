@@ -23,4 +23,7 @@ function App() {
   );
 }
 
+// root route
+// app.get('/posts', (req, res) => res.render('views/Index'))
+
 export default App;

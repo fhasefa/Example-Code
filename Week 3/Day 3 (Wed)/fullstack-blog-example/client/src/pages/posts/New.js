@@ -1,5 +1,6 @@
 import { useRef } from "react";
 import { useNavigate } from "react-router-dom";
+import { createPost } from "../services/postService";
 
 function New() {
 
@@ -7,22 +8,14 @@ function New() {
     let bodyRef = useRef()
     let navigate = useNavigate()
 
-    function handleSubmit(e) {
+    async function handleSubmit(e) {
         e.preventDefault()
         let post = {
             subject: subjectRef.current.value,
             body: bodyRef.current.value
         }
-        fetch('/posts', {
-            method: 'POST',
-            body: JSON.stringify(post),
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        })
-            .then(() => {
-                navigate('/posts')
-            })
+        await createPost(post)
+        navigate('/posts')
     }
 
     return ( 

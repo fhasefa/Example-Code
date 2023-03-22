@@ -1,5 +1,6 @@
 import { useEffect, useState, useRef } from 'react'
 import { useParams, useNavigate, Link } from 'react-router-dom'
+import { getPost, updatePost } from '../services/postService'
 
 function Edit() {
 
@@ -12,27 +13,17 @@ function Edit() {
     const subjectRef = useRef()
 
     useEffect(() => {
-        fetch(`/posts/${params.id}`)
-            .then(res => res.json())
-            .then(data => setPost(data))
+        getPost(params.id).then(data => setPost(data))
     }, [params.id])
 
-    function handleSubmit(e) {
+    async function handleSubmit(e) {
         e.preventDefault()
         let updatedPost = {
             subject: subjectRef.current.value,
             body: bodyRef.current.value
         }
-        fetch(`/posts/${post._id}`, {
-            method: 'PUT',
-            body: JSON.stringify(updatedPost),
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        })
-            .then(() => {
-                navigate(`/posts/${post._id}`)
-            })
+        await updatePost(post._id, updatedPost)
+        navigate(`/posts/${post._id}`)
     }
 
     return ( 

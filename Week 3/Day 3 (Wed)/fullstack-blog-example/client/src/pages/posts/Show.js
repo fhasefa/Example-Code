@@ -1,5 +1,6 @@
 import { useEffect, useState, useRef } from "react"
 import { Link, useNavigate, useParams } from "react-router-dom"
+import { deletePost, getPost } from "../services/postService"
 
 function Show() {
 
@@ -11,9 +12,13 @@ function Show() {
     const detailsRef = useRef()
 
     useEffect(() => {
-        fetch(`/posts/${params.id}`)
-            .then(res => res.json())
-            .then(data => setPost(data))
+        // getPost().then(data => setPost(data))
+        async function loadData() {
+            const data = await getPost(params.id)
+            console.log(data)
+            setPost(data)
+        }
+        loadData()
     }, [params.id])
 
     function handleDeleteComment(comment) {
@@ -27,13 +32,9 @@ function Show() {
             })
     }
 
-    function handleDeletePost() {
-        fetch(`/posts/${post._id}`, {
-            method: 'DELETE'
-        })
-            .then(() => {
-                navigate('/posts')
-            })
+    async function handleDeletePost() {
+        await deletePost(post._id)
+        navigate('/posts')
     }
 
     function handleSubmit(e) {

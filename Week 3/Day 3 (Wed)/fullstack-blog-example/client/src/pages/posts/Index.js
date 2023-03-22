@@ -1,14 +1,21 @@
 import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
+import { getAllPosts } from "../services/postService"
 
 function Index() {
 
     const [posts, setPosts] = useState([])
 
     useEffect(() => {
-        fetch('/posts')
-            .then(res => res.json())
-            .then(data => setPosts(data))
+        // OPTION 1: 
+        // getAllPosts().then(data => setPosts(data))
+
+        // OPTION 2:
+        async function loadData() {
+            const data = await getAllPosts()
+            setPosts(data)
+        }
+        loadData()
     }, [])
 
     return (
