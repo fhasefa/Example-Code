@@ -37,7 +37,7 @@ export async function getCommentFromPost(commentId, postId) {
 
 export async function updateCommentOfIdFromPost(comment, commentId, postId) {
     try {
-        await fetch(`/comments/p/${commentId}/c/${postId}`, {
+        await fetch(`/comments/p/${postId}/c/${commentId}`, {
             method: 'PUT',
             body: JSON.stringify(comment),
             headers: {
