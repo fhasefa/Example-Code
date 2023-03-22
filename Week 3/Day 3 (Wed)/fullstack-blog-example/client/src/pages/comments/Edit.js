@@ -1,5 +1,6 @@
 import { useEffect, useState, useRef } from 'react'
 import { useParams, useNavigate, Link } from 'react-router-dom'
+import { getCommentFromPost, updateCommentOfIdFromPost } from '../services/commentService'
 
 function Edit() {
 
@@ -11,27 +12,18 @@ function Edit() {
     const bodyRef = useRef()
 
     useEffect(() => {
-        fetch(`/comments/p/${params.id}/c/${params.cid}`)
-            .then(res => res.json())
-            .then(data => setComment(data))
+        getCommentFromPost(params.cid, params.id).then(data => setComment(data))
     }, [params.id])
 
-    function handleSubmit(e) {
+    async function handleSubmit(e) {
         e.preventDefault()
+
         let updatedComment = {
             body: bodyRef.current.value
         }
-        console.log(params)
-        fetch(`/comments/p/${params.id}/c/${params.cid}`, {
-            method: 'PUT',
-            body: JSON.stringify(updatedComment),
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        })
-            .then(() => {
-                navigate(`/posts/${params.id}`)
-            })
+       
+        await updateCommentOfIdFromPost(updatedComment, params.cid, params.id)
+        navigate(`/posts/${params.id}`)
     }
 
     return ( 

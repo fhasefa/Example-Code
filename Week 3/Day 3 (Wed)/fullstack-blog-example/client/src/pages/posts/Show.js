@@ -1,5 +1,6 @@
 import { useEffect, useState, useRef } from "react"
 import { Link, useNavigate, useParams } from "react-router-dom"
+import { createCommentForPost, deleteCommentFromPost } from "../services/commentService"
 import { deletePost, getPost } from "../services/postService"
 
 function Show() {
@@ -21,15 +22,11 @@ function Show() {
         loadData()
     }, [params.id])
 
-    function handleDeleteComment(comment) {
-        fetch(`/comments/p/${post._id}/c/${comment._id}`, {
-            method: 'DELETE'
-        })
-            .then(() => {
-                let updatedPost = { ...post }
-                updatedPost.comments = updatedPost.comments.filter(c => c._id !== comment._id)
-                setPost(updatedPost)
-            })
+    async function handleDeleteComment(comment) {
+        await deleteCommentFromPost(comment._id, post._id)
+        let updatedPost = { ...post }
+        updatedPost.comments = updatedPost.comments.filter(c => c._id !== comment._id)
+        setPost(updatedPost)
     }
 
     async function handleDeletePost() {
@@ -37,28 +34,19 @@ function Show() {
         navigate('/posts')
     }
 
-    function handleSubmit(e) {
+    async function handleSubmit(e) {
         e.preventDefault()
 
         let comment = {
             body: bodyRef.current.value
         }
 
-        fetch(`/comments/p/${post._id}`, {
-            method: 'POST',
-            body: JSON.stringify(comment),
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        })
-            .then((res) => res.json())
-            .then((comment) => {
-                let updatedPost = { ...post }
-                updatedPost.comments.push(comment)
-                setPost(updatedPost)
-                bodyRef.current.value = ''
-                detailsRef.current.open = false
-            })
+        const newComment = await createCommentForPost(comment, post._id)
+        let updatedPost = { ...post }
+        updatedPost.comments.push(newComment)
+        setPost(updatedPost)
+        bodyRef.current.value = ''
+        detailsRef.current.open = false
     }
 
     return (
