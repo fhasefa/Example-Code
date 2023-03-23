@@ -2,7 +2,8 @@ const User = require('../models/User')
 
 async function show(req, res) {
     try {
-        const foundUser = await User.findOne({ username: req.params.name })
+        console.log(req.id)
+        const foundUser = await User.findById(req.id)
         
         res.json({ 
             username: foundUser.username, 

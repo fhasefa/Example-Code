@@ -26,7 +26,7 @@ function Login({ setUser }) {
             console.log(authResponse.data.token)
             localStorage.setItem("token", authResponse.data.token)
 
-            const infoResponse = await axios.get(`/users/${form.username}`)
+            const infoResponse = await axios.get(`/users`)
             console.log(infoResponse)
             setUser(infoResponse.data)
             navigate('/profile')
