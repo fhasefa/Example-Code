@@ -1,7 +1,11 @@
 import { Link } from "react-router-dom";
 
 function Navbar({ user, setUser }) {
-  const logout = () => {};
+  
+  const logout = () => {
+    localStorage.removeItem("token")
+    setUser({})
+  };
 
   return (
     <ul>
@@ -17,7 +21,7 @@ function Navbar({ user, setUser }) {
             <Link to="/profile">Profile</Link>
           </li>
           <li onClick={logout}>
-            <Link>Logout</Link>
+            <Link to="/login">Logout</Link>
           </li>
         </>
        : 

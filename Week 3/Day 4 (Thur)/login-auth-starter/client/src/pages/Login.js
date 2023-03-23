@@ -3,15 +3,17 @@ import axios from 'axios'
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+let emptyForm = { 
+    username: '',
+    password: '',
+    email: ''
+}
 
 function Login({ setUser }) {
 
     const navigate = useNavigate()
 
-    let [form, setForm] = useState({ 
-        username: '',
-        password: ''
-    })
+    let [form, setForm] = useState(emptyForm)
 
     const handleChange = (e) => {
         setForm({ ...form, [e.target.name]: e.target.value })
@@ -19,20 +21,24 @@ function Login({ setUser }) {
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-        console.log(form)
+
         try {
 
             const authResponse = await axios.post('/auth/login', form)
-            console.log(authResponse.data.token)
             localStorage.setItem("token", authResponse.data.token)
 
-            const infoResponse = await axios.get(`/users`)
-            console.log(infoResponse)
+            const infoResponse = await axios.get(`/users`, {
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem("token")}`
+                }
+            })
+            
             setUser(infoResponse.data)
             navigate('/profile')
 
         } catch(err) {
-            console.log(err.response.data.error)
+            alert(err.response.data.error)
+            setForm(emptyForm)
         }
     }
 

@@ -1,3 +1,5 @@
+import axios from 'axios'
+
 import { useState, useEffect } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
 
@@ -12,8 +14,31 @@ import Register from "./pages/Register";
 function App() {
 
     const [user, setUser] = useState({})
+    const [isLoading, setIsLoading] = useState(true)
 
     useEffect(() => {
+        
+        let token = localStorage.getItem("token")
+
+        if (token) {
+            getLoggedInUser()
+        }
+
+        async function getLoggedInUser() {
+            try {
+                const response = await axios.get('/users', {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                })
+                setUser(response.data)
+            } catch(err) {
+                localStorage.removeItem("token")
+                alert(err.response.data.error)
+            } finally {
+                setIsLoading(false)
+            }
+        }
 
     }, [])
 
@@ -27,13 +52,13 @@ function App() {
                 {loggedIn ?
                     <>
                         <Route path="/profile" element={<Profile username={user.username} email={user.email} />} /> 
-                        <Route path="*" element={<Navigate to="/" />} />
+                        {!isLoading && <Route path="*" element={<Navigate to="/" />} />}
                     </>
                     :
                     <>
                         <Route path="/login" element={<Login setUser={setUser} />} />
                         <Route path="/register" element={<Register setUser={setUser} />} />
-                        <Route path="*" element={<Navigate to="/login" />} />
+                        {!isLoading && <Route path="*" element={<Navigate to="/login" />} />}
                     </>
                 }
             </Routes>

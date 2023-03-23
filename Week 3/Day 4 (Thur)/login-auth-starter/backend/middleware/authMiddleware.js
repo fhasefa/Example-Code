@@ -26,6 +26,7 @@ async function authorize(req, res, next) {
         req.user = payload.user
 
         // 4. Move on to the requested route (next)
+
         next()
 
     } catch(err) {
