@@ -1,3 +1,5 @@
+import axios from 'axios'
+
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -19,7 +21,7 @@ function Login({ setUser }) {
         e.preventDefault()
         console.log(form)
         try {
-            const response = await axios.post('http://localhost:8080/auth/login')
+            const response = await axios.post('http://localhost:8080/auth/login', form)
             console.log(response.data.token)
             localStorage.setItem("token", response.data.token)
         } catch(err) {
