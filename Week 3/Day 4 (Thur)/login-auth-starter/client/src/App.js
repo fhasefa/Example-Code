@@ -17,7 +17,7 @@ function App() {
 
     }, [])
 
-    let loggedIn = false
+    let loggedIn = user.username
 
     return ( 
         <div className="app">

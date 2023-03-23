@@ -21,9 +21,16 @@ function Login({ setUser }) {
         e.preventDefault()
         console.log(form)
         try {
-            const response = await axios.post('http://localhost:8080/auth/login', form)
-            console.log(response.data.token)
-            localStorage.setItem("token", response.data.token)
+
+            const authResponse = await axios.post('/auth/login', form)
+            console.log(authResponse.data.token)
+            localStorage.setItem("token", authResponse.data.token)
+
+            const infoResponse = await axios.get(`/users/${form.username}`)
+            console.log(infoResponse)
+            setUser(infoResponse.data)
+            navigate('/profile')
+
         } catch(err) {
             console.log(err.response.data.error)
         }

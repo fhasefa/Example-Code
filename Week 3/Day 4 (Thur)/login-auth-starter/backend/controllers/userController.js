@@ -1,8 +1,8 @@
 const User = require('../models/User')
 
-async function info(req, res) {
+async function show(req, res) {
     try {
-        const foundUser = await User.findById(req.userId)
+        const foundUser = await User.findOne({ username: req.params.name })
         
         res.json({ 
             username: foundUser.username, 
@@ -15,5 +15,5 @@ async function info(req, res) {
 }
 
 module.exports = {
-    info
+    show
 }
