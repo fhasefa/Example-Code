@@ -45,7 +45,7 @@ function App() {
     }, [])
 
     let loggedIn = user.username
-console.log(isLoading)
+
     return ( 
         <div className="app">
             <Navbar user={user.username} setUser={setUser} />
